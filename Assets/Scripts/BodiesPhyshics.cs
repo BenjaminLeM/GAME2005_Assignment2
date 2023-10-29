@@ -127,11 +127,11 @@ public class BodiesPhyshics : MonoBehaviour
         Debug.Log("Launched Projectiles: \n\n");
         for (int i = bodies.Count; i > 0; i--) 
         {
-            if (bodies[i].ProjectileLaunchState == 2) 
+            if (bodies[i-1].ProjectileLaunchState == 2) 
             {
-                Debug.Log("Projectile " + printedProjectiles.ToString() + ": \n ElevationAngle: " + bodies[i].startElevationAngle.ToString() + "\n"
-                                                        + "Distance Travelled: " + bodies[i].distanceTravelled.ToString() + "\n"
-                                                        + "Time in air: " + bodies[i].flightTime.ToString() + "\n");
+                Debug.Log("Projectile " + printedProjectiles.ToString() + ": \n ElevationAngle: " + bodies[i-1].startElevationAngle.ToString() + "\n"
+                                                        + "Distance Travelled: " + bodies[i-1].distanceTravelled.ToString() + "\n"
+                                                        + "Time in air: " + bodies[i-1].flightTime.ToString() + "\n");
                 printedProjectiles++;
             }
         }
