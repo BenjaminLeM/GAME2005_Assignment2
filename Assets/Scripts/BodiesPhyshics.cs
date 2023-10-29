@@ -155,6 +155,7 @@ public class BodiesPhyshics : MonoBehaviour
                         (body.vel.x * dt) * body.drag,
                         (body.vel.y * dt) * body.drag,
                         (body.vel.z * dt) * body.drag);
+                    body.flightTime += dt;
                 }
                 //checks if projectile is landed
                 else if (body.transform.position.y <= 0 && body.ProjectileLaunchState == 1)
@@ -173,6 +174,7 @@ public class BodiesPhyshics : MonoBehaviour
                             (body.vel.x * 0.0001f) * body.drag,
                             (body.vel.y * 0.0001f) * body.drag,
                             (body.vel.z * 0.0001f) * body.drag);
+                        body.flightTime += 0.0001f;
                     }
                     else
                     {
@@ -181,6 +183,7 @@ public class BodiesPhyshics : MonoBehaviour
                             (body.vel.x * dt) * body.drag,
                             (body.vel.y * dt) * body.drag,
                             (body.vel.z * dt) * body.drag);
+                        body.flightTime += dt;
                     }
                 }
             }

@@ -9,6 +9,7 @@ public class Body : Shape
     public Vector3 endPos = new Vector3();
     public float startElevationAngle = 0.0f;
     public float distanceTravelled = 0.0f;
+    public float flightTime = 0.0f;
     public Vector3 vel = new Vector3(0.0f, 0.0f, 0.0f);
     public float weight = 1.0f;
     public float drag = 0.0f;
