@@ -120,6 +120,7 @@ public class Launch : MonoBehaviour
         GameObject newObject = Instantiate(projectilePrefab);
         newObject.transform.position = transform.position;
         body = newObject.GetComponent<Body>();
+        //gives intial velocity
         body.vel = new Vector3(launchSpeed * Mathf.Cos(Mathf.Deg2Rad * elevationAngle),
                                 launchSpeed * Mathf.Sin(Mathf.Deg2Rad * elevationAngle),
                                 0);

@@ -157,11 +157,11 @@ public class BodiesPhyshics : MonoBehaviour
                 {
                     if ((body.transform.position.y + body.vel.y * dt) < 0) 
                     {
-                        body.Simulate(grav, 0.00001f);
+                        body.Simulate(grav, 0.0001f);
                         body.transform.localPosition += new Vector3(
-                            (body.vel.x * 0.00001f) * body.drag,
-                            (body.vel.y * 0.00001f) * body.drag,
-                            (body.vel.z * 0.00001f) * body.drag);
+                            (body.vel.x * 0.0001f) * body.drag,
+                            (body.vel.y * 0.0001f) * body.drag,
+                            (body.vel.z * 0.0001f) * body.drag);
                     }
                     else
                     {
