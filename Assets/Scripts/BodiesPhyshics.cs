@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 //using System.Numerics;
 using UnityEngine;
-
+using System.IO;
+using UnityEditor.Experimental.GraphView;
 
 public class BodiesPhyshics : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class BodiesPhyshics : MonoBehaviour
     // Plot 3D projectile motion by specifying a pitch (launch-angle about X) and yaw (launch-angle about Y)
     public Vector3 launchPosition;
     public float dt;
-    public Vector3 grav = new Vector3(0, -9.8f, 0);
+    public Vector3 grav = new Vector3(0, -1.6f, 0);
     public List<Body> bodies = new List<Body>();
     void checkForNewBodies()
     {
@@ -31,6 +32,7 @@ public class BodiesPhyshics : MonoBehaviour
     }
     bool checkSpherePlaneCollision(Body sphere, Body halfSpace)
     {
+        //currently non functional
         //float distance = Mathf.Abs(bodyB.transform.position.x * bodyA.transform.position.x 
         //                            + bodyB.transform.position.y * bodyA.transform.position.y 
         //                            + bodyB.transform.position.z * bodyA.transform.position.z + 
@@ -82,6 +84,17 @@ public class BodiesPhyshics : MonoBehaviour
                         bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     }
                 }
+                else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 2)
+                {
+                    if (checkSpherePlaneCollision(bodyB, bodyA))
+                    {
+                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                    }
+                    else
+                    {
+                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+                    }
+                }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 3)
                 {
                     if (checkSphereHalfPlaneCollision(bodyA, bodyB))
@@ -121,11 +134,44 @@ public class BodiesPhyshics : MonoBehaviour
         {
             if (body.isProjectile)
             {
-                body.Simulate(grav, dt);
-                body.transform.localPosition += new Vector3(
-                    (body.vel.x * dt) * body.drag,
-                    (body.vel.y * dt) * body.drag,
-                    (body.vel.z * dt) * body.drag);
+                //checks if projectile is launching 
+                if (body.ProjectileLaunchState == 0)
+                {
+                    body.ProjectileLaunchState = 1;
+                    body.startPos = body.transform.position;
+                    body.Simulate(grav, dt);
+                    body.transform.localPosition += new Vector3(
+                        (body.vel.x * dt) * body.drag,
+                        (body.vel.y * dt) * body.drag,
+                        (body.vel.z * dt) * body.drag);
+                }
+                //checks if projectile is landed
+                else if (body.transform.position.y <= 0 && body.ProjectileLaunchState == 1)
+                {
+                    body.ProjectileLaunchState = 2;
+                    body.endPos = body.transform.position;
+                    body.distanceTravelled = body.endPos.x - body.startPos.x;
+                }
+                //checks if projectile is in the air
+                else if(body.ProjectileLaunchState == 1)
+                {
+                    if ((body.transform.position.y + body.vel.y * dt) < 0) 
+                    {
+                        body.Simulate(grav, 0.00001f);
+                        body.transform.localPosition += new Vector3(
+                            (body.vel.x * 0.00001f) * body.drag,
+                            (body.vel.y * 0.00001f) * body.drag,
+                            (body.vel.z * 0.00001f) * body.drag);
+                    }
+                    else
+                    {
+                        body.Simulate(grav, dt);
+                        body.transform.localPosition += new Vector3(
+                            (body.vel.x * dt) * body.drag,
+                            (body.vel.y * dt) * body.drag,
+                            (body.vel.z * dt) * body.drag);
+                    }
+                }
             }
         }
 

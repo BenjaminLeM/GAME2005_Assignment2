@@ -156,10 +156,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShapeType: 0
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
+  startElevationAngle: 0
+  distanceTravelled: 0
   vel: {x: 0, y: 0, z: 0}
-  grav: 1
+  weight: 1
   drag: 0
   radius: 0.5
+  ProjectileLaunchState: 0
   isProjectile: 0
 --- !u!135 &525250460
 SphereCollider:
@@ -553,10 +558,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShapeType: 3
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
+  startElevationAngle: 0
+  distanceTravelled: 0
   vel: {x: 0, y: 0, z: 0}
-  grav: 1
+  weight: 1
   drag: 0
   radius: 0.5
+  ProjectileLaunchState: 0
   isProjectile: 0
 --- !u!1 &1292594763
 GameObject:
@@ -605,7 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchPosition: {x: 0, y: 0, z: 0}
   dt: 0
-  grav: {x: 0, y: -9.8, z: 0}
+  grav: {x: 0, y: -1.6, z: 0}
   bodies: []
 --- !u!114 &1292594766
 MonoBehaviour:
@@ -621,11 +631,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 3367971244874006189, guid: fd759ba668fb844479d0748caf649d54, type: 3}
   body: {fileID: 0}
-  launchSpeed: 5
-  launchPitch: 0
-  launchYaw: 90
-  drag: 0
-  gravity: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
