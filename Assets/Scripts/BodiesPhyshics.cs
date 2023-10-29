@@ -122,14 +122,24 @@ public class BodiesPhyshics : MonoBehaviour
     }
     private void printTotextFile() 
     {
-        string path = "Assets/Prefabs/LaunchData.txt";
-        StreamWriter writer = new StreamWriter(path, true);
-        writer.WriteLine("Distance Travelled \n\n");
-        foreach (Body body in bodies) 
+        string path = Application.streamingAssetsPath + "/Prefabs/LaunchData.txt";
+        int printedProjectiles = 0;
+        TextWriter Writer = new StreamWriter(path, false);
+        Writer.WriteLine("Launch Data \n\n");
+        Writer.Close();
+        Writer = new StreamWriter(path, true);
+        for (int i = 0; i < bodies.Count; i++) 
         {
-            writer.WriteLine(body.distanceTravelled.ToString() + "\n");
+            if (bodies[i].ProjectileLaunchState == 2) 
+            {
+                Writer.WriteLine("Projectile " + printedProjectiles.ToString() + ": \n ElevationAngle: " + bodies[i].startElevationAngle.ToString() + "\n"
+                                                        + "Distance Travelled: " + bodies[i].distanceTravelled.ToString() + "\n"
+                                                        + "Time in air: " + bodies[i].flightTime.ToString() + "\n");
+                printedProjectiles++;
+            }
         }
-        writer.Close();
+        Writer.Close();
+        
     }
     private void Start()
     {
@@ -188,7 +198,7 @@ public class BodiesPhyshics : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             printTotextFile();
         }
