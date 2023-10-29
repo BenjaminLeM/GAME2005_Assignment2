@@ -22,6 +22,6 @@ public class Body : Shape
     public void Simulate(Vector3 acc, float dt)
     {
         vel = vel + acc * weight * dt;
-        transform.position = transform.position + vel * dt;
+        transform.position += vel * dt;
     }
 }

@@ -10,7 +10,7 @@ public class Launch : MonoBehaviour
     public Body body;
     private float launchSpeed = 0.0f;
     private float elevationAngle = 0.0f;
-    private float drag = 1.0f;
+    private float drag = 0.0f;
     private float mass = 1.0f;
     // Start is called before the first frame update
     void Start()

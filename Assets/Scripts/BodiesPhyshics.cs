@@ -120,6 +120,17 @@ public class BodiesPhyshics : MonoBehaviour
             }
         }
     }
+    private void printTotextFile() 
+    {
+        string path = "Assets/Prefabs/LaunchData.txt";
+        StreamWriter writer = new StreamWriter(path, true);
+        writer.WriteLine("Distance Travelled \n\n");
+        foreach (Body body in bodies) 
+        {
+            writer.WriteLine(body.distanceTravelled.ToString() + "\n");
+        }
+        writer.Close();
+    }
     private void Start()
     {
         dt = Time.fixedDeltaTime;
@@ -174,7 +185,10 @@ public class BodiesPhyshics : MonoBehaviour
                 }
             }
         }
-
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            printTotextFile();
+        }
         //Simulate(Physics.gravity, Time.fixedDeltaTime);
         //transform.position = new Vector3(
         //    transform.position.x + (vel.x * dt) * drag,
