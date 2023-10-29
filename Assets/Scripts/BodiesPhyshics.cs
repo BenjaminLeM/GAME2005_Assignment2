@@ -179,12 +179,12 @@ public class BodiesPhyshics : MonoBehaviour
                 {
                     if ((body.transform.position.y + body.vel.y * dt) < 0) 
                     {
-                        body.Simulate(grav, 0.0001f);
+                        body.Simulate(grav, dt);
                         body.transform.localPosition += new Vector3(
-                            (body.vel.x * 0.0001f) * body.drag,
-                            (body.vel.y * 0.0001f) * body.drag,
-                            (body.vel.z * 0.0001f) * body.drag);
-                        body.flightTime += 0.0001f;
+                            ((body.vel.x*(body.transform.position.y /body.vel.y)) * dt) * body.drag,
+                            ((body.vel.y * (body.transform.position.y / body.vel.y)) * dt) * body.drag,
+                            ((body.vel.z) * dt) * body.drag);
+                        body.flightTime += dt;
                     }
                     else
                     {
