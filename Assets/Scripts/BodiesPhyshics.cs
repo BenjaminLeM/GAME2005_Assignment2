@@ -120,26 +120,21 @@ public class BodiesPhyshics : MonoBehaviour
             }
         }
     }
-    private void printTotextFile() 
+    private void printToConsole() 
     {
-        string path = Application.streamingAssetsPath + "/Prefabs/LaunchData.txt";
+        Debug.ClearDeveloperConsole();
         int printedProjectiles = 0;
-        TextWriter Writer = new StreamWriter(path, false);
-        Writer.WriteLine("Launch Data \n\n");
-        Writer.Close();
-        Writer = new StreamWriter(path, true);
-        for (int i = 0; i < bodies.Count; i++) 
+        Debug.Log("Launched Projectiles: \n\n");
+        for (int i = bodies.Count; i > 0; i--) 
         {
             if (bodies[i].ProjectileLaunchState == 2) 
             {
-                Writer.WriteLine("Projectile " + printedProjectiles.ToString() + ": \n ElevationAngle: " + bodies[i].startElevationAngle.ToString() + "\n"
+                Debug.Log("Projectile " + printedProjectiles.ToString() + ": \n ElevationAngle: " + bodies[i].startElevationAngle.ToString() + "\n"
                                                         + "Distance Travelled: " + bodies[i].distanceTravelled.ToString() + "\n"
                                                         + "Time in air: " + bodies[i].flightTime.ToString() + "\n");
                 printedProjectiles++;
             }
         }
-        Writer.Close();
-        
     }
     private void Start()
     {
@@ -177,13 +172,14 @@ public class BodiesPhyshics : MonoBehaviour
                 //checks if projectile is in the air
                 else if(body.ProjectileLaunchState == 1)
                 {
-                    if ((body.transform.position.y + body.vel.y * dt) < 0) 
+                    if ((body.transform.position.y + body.vel.y * dt) <= 0) 
                     {
                         body.Simulate(grav, dt);
                         body.transform.localPosition += new Vector3(
                             ((body.vel.x*(body.transform.position.y /body.vel.y)) * dt) * body.drag,
                             ((body.vel.y * (body.transform.position.y / body.vel.y)) * dt) * body.drag,
                             ((body.vel.z) * dt) * body.drag);
+                        body.transform.position = new Vector3(body.transform.position.x, 0.0f, body.transform.position.z);
                         body.flightTime += dt;
                     }
                     else
@@ -200,7 +196,7 @@ public class BodiesPhyshics : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            printTotextFile();
+            printToConsole();
         }
         //Simulate(Physics.gravity, Time.fixedDeltaTime);
         //transform.position = new Vector3(
