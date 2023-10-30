@@ -194,15 +194,18 @@ public class BodiesPhyshics : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            printToConsole();
-        }
         //Simulate(Physics.gravity, Time.fixedDeltaTime);
         //transform.position = new Vector3(
         //    transform.position.x + (vel.x * dt) * drag,
         //    transform.position.y + (vel.y * dt) * drag,
         //    transform.position.z + (vel.z * dt) * drag
         //);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            printToConsole();
+        }
     }
 }
